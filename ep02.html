@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Build CPK Dashboard in 5 Minutes — TheTakeAI EP.02</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Sarabun:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #f2f7f4;
+    --warm-white: #f7fbf8;
+    --blush: #a8d5b5;
+    --dusty-rose: #4a9b6f;
+    --terracotta: #2d7a50;
+    --sage: #6abf8a;
+    --sage-light: #c2e8d0;
+    --charcoal: #1a2e22;
+    --warm-gray: #4a6456;
+    --light-gray: #d0e8d8;
+    --accent-gold: #7bc99a;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background-color: var(--cream); color: var(--charcoal); font-family: "Sarabun", sans-serif; font-weight: 300; line-height: 1.9; font-size: 17px; }
+
+  .hero { background-color: var(--warm-white); border-bottom: 1px solid var(--light-gray); padding: 80px 24px 60px; text-align: center; position: relative; overflow: hidden; }
+  .hero::before { content: ""; position: absolute; top: -60px; left: 50%; transform: translateX(-50%); width: 600px; height: 600px; background: radial-gradient(circle, rgba(168,213,181,0.25) 0%, transparent 70%); pointer-events: none; }
+  .tag-line { display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--dusty-rose); border: 1px solid var(--blush); padding: 5px 16px; border-radius: 20px; margin-bottom: 28px; }
+  .hero h1 { font-family: "Playfair Display", serif; font-size: clamp(26px, 5vw, 48px); font-weight: 700; line-height: 1.25; color: var(--charcoal); max-width: 720px; margin: 0 auto 20px; }
+  .hero h1 em { font-style: italic; color: var(--terracotta); }
+  .hero-sub { font-size: 15px; color: var(--warm-gray); max-width: 480px; margin: 0 auto 36px; }
+  .meta-row { display: flex; align-items: center; justify-content: center; gap: 20px; font-size: 13px; color: var(--warm-gray); flex-wrap: wrap; }
+  .meta-row .dot { color: var(--blush); }
+  .avatar-wrap { display: flex; align-items: center; gap: 8px; }
+  .avatar { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, var(--sage-light), var(--blush)); display: flex; align-items: center; justify-content: center; font-size: 14px; }
+  .hero-video { width: 100%; max-width: 720px; margin: 36px auto 0; display: block; border-radius: 20px; overflow: hidden; box-shadow: 0 12px 40px rgba(26,46,34,0.15); aspect-ratio: 16/9; }
+  .hero-video iframe { width: 100%; height: 100%; border: none; display: block; }
+
+  .container { max-width: 680px; margin: 0 auto; padding: 64px 24px 100px; }
+  .intro-pull { font-family: "Playfair Display", serif; font-size: 21px; font-style: italic; line-height: 1.6; color: var(--warm-gray); border-left: 3px solid var(--blush); padding-left: 24px; margin-bottom: 40px; }
+  p { margin-bottom: 20px; }
+
+  .section { margin: 56px 0 24px; }
+  .section-number { font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--dusty-rose); display: block; margin-bottom: 8px; }
+  .section h2 { font-family: "Playfair Display", serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: var(--charcoal); line-height: 1.3; }
+  .section h2 span { color: var(--terracotta); }
+
+  .card { background: var(--warm-white); border: 1px solid var(--light-gray); border-radius: 16px; padding: 28px 32px; margin: 24px 0; position: relative; }
+  .card::before { content: attr(data-icon); position: absolute; top: -14px; left: 24px; font-size: 24px; background: var(--cream); padding: 0 6px; }
+  .card p:last-child { margin-bottom: 0; }
+
+  /* File download cards */
+  .file-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 24px 0; }
+  .file-card { background: var(--warm-white); border: 1px solid var(--light-gray); border-radius: 14px; padding: 20px; display: flex; flex-direction: column; gap: 8px; }
+  .file-card .file-icon { font-size: 28px; }
+  .file-card .file-name { font-size: 13px; font-weight: 600; color: var(--terracotta); font-family: monospace; }
+  .file-card .file-desc { font-size: 13px; color: var(--warm-gray); }
+
+  /* Prompt preview */
+  .prompt-box { background: var(--charcoal); border-radius: 14px; padding: 24px 28px; margin: 24px 0; }
+  .prompt-box pre { color: var(--sage-light); font-size: 13px; font-family: monospace; line-height: 1.8; white-space: pre-wrap; word-break: break-word; }
+  .prompt-label { font-size: 11px; letter-spacing: 2px; color: var(--sage); text-transform: uppercase; margin-bottom: 12px; display: block; }
+
+  strong { font-weight: 600; color: var(--charcoal); }
+  mark { background: linear-gradient(120deg, rgba(168,213,181,0.45) 0%, rgba(168,213,181,0.15) 100%); color: inherit; padding: 1px 4px; border-radius: 3px; }
+
+  .step-list { list-style: none; margin: 24px 0; display: flex; flex-direction: column; gap: 16px; }
+  .step-list li { display: flex; gap: 16px; align-items: flex-start; }
+  .step-num { flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; background: var(--dusty-rose); color: white; font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center; margin-top: 3px; }
+  .step-text strong { display: block; font-size: 15px; margin-bottom: 2px; }
+  .step-text span { font-size: 14px; color: var(--warm-gray); }
+
+  .divider { display: flex; align-items: center; gap: 16px; margin: 48px 0; color: var(--light-gray); }
+  .divider::before, .divider::after { content: ""; flex: 1; height: 1px; background: var(--light-gray); }
+
+  .closing-quote { background: linear-gradient(135deg, #2d7a50, #4a9b6f); color: white; border-radius: 20px; padding: 40px; margin: 48px 0; text-align: center; }
+  .closing-quote p { font-family: "Playfair Display", serif; font-size: clamp(18px, 2.5vw, 22px); font-style: italic; line-height: 1.5; margin-bottom: 12px; opacity: 0.95; }
+  .closing-quote small { font-size: 13px; opacity: 0.7; }
+
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 48px; padding-top: 32px; border-top: 1px solid var(--light-gray); }
+  .tags a { text-decoration: none; background: var(--warm-white); border: 1px solid var(--light-gray); color: var(--warm-gray); font-size: 12px; padding: 5px 14px; border-radius: 20px; }
+  .tags a:hover { border-color: var(--blush); color: var(--terracotta); }
+
+  .ep-nav { display: flex; gap: 12px; margin-bottom: 48px; }
+  .ep-btn { text-decoration: none; padding: 8px 20px; border-radius: 20px; font-size: 13px; border: 1px solid var(--light-gray); color: var(--warm-gray); background: var(--warm-white); transition: all 0.2s; }
+  .ep-btn:hover { border-color: var(--blush); color: var(--terracotta); }
+  .ep-btn.active { background: var(--terracotta); color: white; border-color: var(--terracotta); }
+
+  .source-note { font-size: 13px; color: var(--warm-gray); font-style: italic; padding: 16px 20px; border-left: 2px solid var(--sage-light); margin: 40px 0 0; }
+
+  footer { text-align: center; padding: 40px 24px; font-size: 13px; color: var(--warm-gray); border-top: 1px solid var(--light-gray); background: var(--warm-white); }
+  footer strong { color: var(--terracotta); font-weight: 600; }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  .hero > * { animation: fadeUp 0.7s ease forwards; }
+  .hero .tag-line { animation-delay: 0.1s; opacity: 0; }
+  .hero h1 { animation-delay: 0.25s; opacity: 0; }
+  .hero-sub { animation-delay: 0.4s; opacity: 0; }
+  .meta-row { animation-delay: 0.55s; opacity: 0; }
+
+  @media (max-width: 600px) {
+    .card { padding: 22px 20px; }
+    .closing-quote { padding: 32px 24px; }
+    .file-cards { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="tag-line">TheTakeAI · Engineering Series · EP.02</div>
+  <h1>Build CPK Dashboard<br><em>in 5 Minutes</em></h1>
+  <p class="hero-sub">ไม่ต้องเริ่ม Excel ใหม่ ไม่ต้องเขียนสูตรซ้ำ — ฉบับ Engineer ใช้ได้จริงค่ะ</p>
+  <div class="meta-row">
+    <div class="avatar-wrap">
+      <div class="avatar">🌿</div>
+      <span>TheTakeAI</span>
+    </div>
+    <span class="dot">·</span>
+    <span>2026</span>
+    <span class="dot">·</span>
+    <span>อ่าน 4 นาที</span>
+  </div>
+  <div class="hero-video">
+    <iframe
+      src="https://www.youtube.com/embed/8JcbSSi8n0g?rel=0"
+      title="EP.02 — Build CPK Dashboard in 5 Minutes | TheTakeAI"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen>
+    </iframe>
+  </div>
+</header>
+
+<main class="container">
+
+  <div class="ep-nav">
+    <a href="index.html" class="ep-btn">← EP.01</a>
+    <a href="ep02.html" class="ep-btn active">EP.02</a>
+  </div>
+
+  <p class="intro-pull">
+    "ทุกครั้งที่เปลี่ยน process ต้องนั่งสร้าง Excel ใหม่ เขียนสูตร Cp/Cpk ใหม่ วาด histogram ใหม่... EP นี้มาแก้ตรงนั้นเลยค่ะ"
+  </p>
+
+  <p>
+    ใครทำงาน QC หรือ Process Engineer น่าจะเคยเจอปัญหานี้กันค่ะ แทนที่จะโฟกัสการวิเคราะห์ข้อมูล กลับเสียเวลา setup template ซ้ำๆ ทุกครั้งที่เปลี่ยน process
+  </p>
+
+  <p>
+    EP.02 นี้ลองใช้ AI สร้าง <mark>CPK Dashboard พร้อมใช้งานจริงใน 5 นาที</mark> มาดูกันว่าทำได้จริงไหมค่ะ 🌿
+  </p>
+
+  <div class="divider"><span>✦</span></div>
+
+  <!-- Section 1 -->
+  <div class="section">
+    <span class="section-number">Section 01</span>
+    <h2>สิ่งที่ AI <span>สร้างให้ใน EP นี้</span></h2>
+  </div>
+
+  <ul class="step-list">
+    <li>
+      <div class="step-num">1</div>
+      <div class="step-text">
+        <strong>Excel Template คำนวณ Cp/Cpk อัตโนมัติ</strong>
+        <span>ใส่ USL, LSL และ data เข้าไป สูตรคำนวณ Cp, Cpk พร้อมแสดงผลทันที ไม่ต้องเขียนใหม่ทุกครั้งค่ะ</span>
+      </div>
+    </li>
+    <li>
+      <div class="step-num">2</div>
+      <div class="step-text">
+        <strong>Histogram + Dashboard อัตโนมัติ</strong>
+        <span>กราฟแสดงการกระจายของ data พร้อม spec limit line ให้เห็นภาพว่า process อยู่ใน spec หรือเปล่าทันทีค่ะ</span>
+      </div>
+    </li>
+    <li>
+      <div class="step-num">3</div>
+      <div class="step-text">
+        <strong>ใช้ซ้ำได้กับทุก Process</strong>
+        <span>แค่ paste data ใหม่ ทุกอย่าง update อัตโนมัติเลยค่ะ ไม่ต้อง setup ใหม่ทุกครั้ง</span>
+      </div>
+    </li>
+  </ul>
+
+  <!-- Section 2 -->
+  <div class="section">
+    <span class="section-number">Section 02</span>
+    <h2>วิธีเขียน Prompt <span>แบบ Engineer จริงๆ</span></h2>
+  </div>
+
+  <p>
+    สิ่งที่สำคัญกว่าไฟล์คือ <strong>วิธีคิดก่อนจะเขียน prompt</strong> ค่ะ ไม่ใช่แค่ copy-paste แล้วหวังว่ามันจะทำงานให้นะคะ
+  </p>
+
+  <div class="card" data-icon="💡">
+    <p>AI ต้องรู้ว่า <strong>Output คืออะไร</strong> — Excel file ที่ทำงานได้จริง ไม่ใช่แค่ตัวอย่าง</p>
+    <p>ต้องบอก <strong>Structure</strong> — column ไหนรับ input, column ไหน calculate, sheet ไหนเป็น dashboard</p>
+    <p>ต้องระบุ <strong>Edge case</strong> — เช่น ถ้า data น้อยกว่า 30 จุด ให้แสดง warning ด้วยค่ะ</p>
+  </div>
+
+  <div class="prompt-box">
+    <span class="prompt-label">📋 ตัวอย่าง Prompt Structure</span>
+    <pre>สร้าง Excel template สำหรับคำนวณ Cp และ Cpk โดย:
+- Sheet 1: Data Input (คอลัมน์ A = measurements)
+- Sheet 2: Calculation (USL, LSL, Mean, Std, Cp, Cpk)
+- Sheet 3: Dashboard (Histogram + spec lines)
+
+เงื่อนไข:
+- รองรับ data สูงสุด 500 จุด
+- ถ้า Cpk < 1.33 ให้แสดง warning สีแดง
+- ใช้ซ้ำได้ แค่ paste data ใหม่</pre>
+  </div>
+
+  <p>
+    ลองปรับ prompt ให้เข้ากับ process ของตัวเองดูนะคะ ผลลัพธ์จะต่างกันเยอะมากเลยค่ะ 🎯
+  </p>
+
+  <!-- Section 3 -->
+  <div class="section">
+    <span class="section-number">Section 03</span>
+    <h2>ไฟล์ฟรี <span>ดาวน์โหลดได้เลย</span></h2>
+  </div>
+
+  <p>แนบไว้ในโพสต์ Facebook / LinkedIn แล้วค่ะ ดาวน์โหลดได้เลยนะคะ 📦</p>
+
+  <div class="file-cards">
+    <div class="file-card">
+      <div class="file-icon">📄</div>
+      <div class="file-name">Prompt_CPK_dashboard_template.txt</div>
+      <div class="file-desc">Prompt template พร้อมใช้สั่ง AI สร้าง CPK dashboard</div>
+    </div>
+    <div class="file-card">
+      <div class="file-icon">📊</div>
+      <div class="file-name">Template_CPK_Dashboard.xlsx</div>
+      <div class="file-desc">Excel template พร้อมใช้ แค่ paste data แล้วเริ่มได้เลย</div>
+    </div>
+  </div>
+
+  <div class="divider"><span>✦</span></div>
+
+  <div class="closing-quote">
+    <p>AI ไม่ได้มาแทน Excel</p>
+    <p>แต่ช่วยให้ Engineer สร้างเครื่องมือได้เร็วขึ้น<br>จากงาน setup → ไปโฟกัสการวิเคราะห์จริงๆ 💚</p>
+    <small>— TheTakeAI</small>
+  </div>
+
+  <p>
+    ลองใช้แล้วได้ผลยังไง หรืออยากให้ช่วยปรับ prompt ให้เข้ากับงานตัวเอง ทักมาคุยกันได้เลยนะคะ 😊
+  </p>
+
+  <div class="source-note">
+    EP ต่อไปจะแชร์เรื่อง AI Tips และ Use case จริงสำหรับวิศวกรต่อไปค่ะ ติดตามได้เลยนะคะ 🌿
+  </div>
+
+  <div class="tags">
+    <a href="#">#TheTakeAI</a>
+    <a href="#">#EngineerxAI</a>
+    <a href="#">#AIในโรงงาน</a>
+    <a href="#">#CPK</a>
+    <a href="#">#QualityControl</a>
+    <a href="#">#AIForWork</a>
+  </div>
+
+</main>
+
+<footer>
+  <p>เขียนโดย <strong>TheTakeAI</strong> · Engineering Series · EP.02</p>
+  <p style="margin-top:6px; font-size:12px; opacity:0.6;">ทำด้วยความตั้งใจ 🌿 เพื่อประโยชน์และความสุขแก่ข้าพเจ้าทั้งหลาย</p>
+</footer>
+
+</body>
+</html>
