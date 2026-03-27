@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pre-Course Assessment — AI for Engineers</title>
+<title>วัด AI Level ของคุณ — AI for Engineers</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
@@ -82,7 +82,7 @@ a{text-decoration:none;color:inherit}
 .btn-back:hover{color:#fff;border-color:rgba(255,255,255,.25);}
 .btn-next{appearance:none;-webkit-appearance:none;background:transparent;border:1px solid rgba(255,255,255,.1);border-radius:999px;padding:10px 20px;font-size:.9rem;font-weight:400;color:var(--muted);cursor:pointer;font-family:'Inter',system-ui,sans-serif;transition:.15s;}
 .btn-next:hover:not(:disabled){color:#fff;border-color:rgba(255,255,255,.25);}
-.btn-next:disabled{appearance:none;-webkit-appearance:none;background:transparent;color:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.08);cursor:default;}
+.btn-next:disabled{appearance:none;-webkit-appearance:none;background:transparent;color:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.08);border-radius:999px;cursor:default;}
 
 /* RESULT */
 .result-card{background:linear-gradient(180deg,rgba(14,27,48,.96),rgba(9,17,31,.9));border:1px solid rgba(43,64,98,.82);border-radius:22px;padding:28px;box-shadow:var(--shadow);}
@@ -155,8 +155,8 @@ a{text-decoration:none;color:inherit}
 
 <!-- HERO -->
 <div class="hero">
-  <div class="hero-tag"><span class="tag-dot"></span>Pre-Course Assessment</div>
-  <h1>วัดระดับ<br><span>ก่อนเริ่มเรียน</span></h1>
+  <div class="hero-tag"><span class="tag-dot"></span>AI Skill Assessment</div>
+  <h1>วัด AI Level<br><span>ของคุณ</span></h1>
   <p>ตอบ 10 ข้อ เพื่อดูว่าควรเริ่มจาก Module ไหน — ไม่มีผิดถูก ตอบตามความเป็นจริง ใช้เวลาประมาณ 4 นาที</p>
   <div class="info-row">
     <div class="info-item"><div class="info-n">10</div><div class="info-l">คำถาม</div></div>
@@ -278,10 +278,10 @@ const qs = [
 ];
 
 const levels = [
-  {min:0,  max:8,  title:"Beginner",      label:"เริ่มต้นใหม่",    desc:"ยังไม่คุ้นเคยกับ AI มากนัก คอร์สนี้จะเริ่มจากพื้นฐานได้เลย ไม่ต้องมีความรู้ IT มาก่อน", start:1, col:"#3b82f6", bg:"rgba(59,130,246,.12)"},
-  {min:9,  max:16, title:"Intermediate",  label:"มีพื้นฐานบ้าง",   desc:"รู้จัก AI และเคยลองใช้บ้าง แต่ยังไม่ได้ใช้อย่างมีระบบ สามารถข้าม Foundation บางส่วนได้", start:2, col:"#818cf8", bg:"rgba(99,102,241,.12)"},
-  {min:17, max:22, title:"Advanced",      label:"พร้อม dive deep", desc:"ใช้ AI อยู่แล้วในงาน ข้าม Foundation ได้เลย เน้น Advanced techniques, Role-based prompts และ Capstone", start:5, col:"#f59e0b", bg:"rgba(245,158,11,.12)"},
-  {min:23, max:27, title:"Expert",        label:"Expert Level",    desc:"มีความรู้ AI ดีมาก เน้น Module 05–07 เพื่อ deepen role-specific skills และสร้าง Prompt Library จริง", start:5, col:"#22c55e", bg:"rgba(34,197,94,.12)"}
+  {min:0,  max:9,  title:"Beginner",      label:"เริ่มต้นใหม่",    desc:"ยังไม่คุ้นเคยกับ AI มากนัก คอร์สนี้จะเริ่มจากพื้นฐานได้เลย ไม่ต้องมีความรู้ IT มาก่อน", start:1, col:"#3b82f6", bg:"rgba(59,130,246,.12)"},
+  {min:10, max:18, title:"Intermediate",  label:"มีพื้นฐานบ้าง",   desc:"รู้จัก AI และเคยลองใช้บ้าง แต่ยังไม่ได้ใช้อย่างมีระบบ สามารถข้าม Foundation บางส่วนได้", start:2, col:"#818cf8", bg:"rgba(99,102,241,.12)"},
+  {min:19, max:25, title:"Advanced",      label:"พร้อม dive deep", desc:"ใช้ AI อยู่แล้วในงาน ข้าม Foundation ได้เลย เน้น Advanced techniques, Role-based prompts และ Capstone", start:5, col:"#f59e0b", bg:"rgba(245,158,11,.12)"},
+  {min:26, max:30, title:"Expert",        label:"Expert Level",    desc:"มีความรู้ AI ดีมาก เน้น Module 05–07 เพื่อ deepen role-specific skills และสร้าง Prompt Library จริง", start:5, col:"#22c55e", bg:"rgba(34,197,94,.12)"}
 ];
 
 const modules = [
@@ -344,8 +344,8 @@ function renderResult(el){
   const pct = Math.round((sc/mx)*100);
   const r = 36, circ = 2*Math.PI*r;
   const dash = circ * pct/100;
-  const roleIdx = answers[7];
-  const roleName = roleIdx!==undefined ? roleNames[roleIdx] : null;
+  const roleIdx = undefined;
+  const roleName = null;
 
   const modRows = modules.map((m,i)=>{
     const isStart = i===startIdx;
