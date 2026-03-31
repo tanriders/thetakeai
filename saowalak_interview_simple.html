@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Saowalak — Interview Prep</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#08090d;--sur:#10131c;--sur2:#171b27;--bor:#252d3f;--acc:#7c6fff;--acc2:#ff6fd8;--teal:#00d9b0;--yel:#ffd460;--red:#ff6b6b;--txt:#e8ecf4;--dim:#7a8499;--r:12px;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--txt);font-family:'Plus Jakarta Sans',sans-serif;min-height:100vh;line-height:1.6;}
+.hdr{background:linear-gradient(135deg,#10131c,#0d0f18);border-bottom:1px solid var(--bor);padding:0 24px;display:flex;align-items:center;gap:16px;height:64px;position:sticky;top:0;z-index:100;}
+.av{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--acc),var(--acc2));display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;color:#fff;flex-shrink:0;}
+.hi1{font-size:15px;font-weight:700;}.hi2{font-size:11px;color:var(--dim);}
+.badge{margin-left:auto;background:linear-gradient(90deg,#7c6fff20,#ff6fd820);border:1px solid #7c6fff50;color:var(--acc);font-family:'Space Mono',monospace;font-size:10px;padding:4px 12px;border-radius:20px;white-space:nowrap;}
+.nav{display:flex;gap:2px;padding:14px 24px 0;border-bottom:1px solid var(--bor);overflow-x:auto;}
+.tab{padding:9px 16px;border-radius:8px 8px 0 0;font-size:12px;font-weight:600;cursor:pointer;border:none;background:transparent;color:var(--dim);white-space:nowrap;transition:all .2s;border-bottom:2px solid transparent;}
+.tab:hover{color:var(--txt);background:var(--sur);}
+.tab.active{color:var(--acc);background:var(--sur);border-bottom-color:var(--acc);}
+.tab.htab.active{color:#ff8080;border-bottom-color:#c8102e;}
+.content{padding:24px;max-width:900px;margin:0 auto;}
+.sec{display:none;}.sec.active{display:block;}
+.sec-hd{margin-bottom:20px;}.sec-hd h2{font-size:20px;font-weight:700;margin-bottom:4px;}.sec-hd p{font-size:13px;color:var(--dim);}
+.card{background:var(--sur);border:1px solid var(--bor);border-radius:var(--r);padding:20px;margin-bottom:14px;}
+.clabel{font-family:'Space Mono',monospace;font-size:10px;color:var(--acc);letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.clabel::before{content:'';width:5px;height:5px;background:var(--acc);border-radius:50%;}
+.iblock{background:var(--sur2);border:1px solid var(--bor);border-radius:10px;padding:16px;margin-bottom:12px;position:relative;}
+.ilabel{font-size:10px;font-family:'Space Mono',monospace;color:var(--dim);margin-bottom:8px;}
+.ien{font-size:15px;color:var(--txt);line-height:1.9;margin-bottom:8px;}
+.ith{font-size:12px;color:var(--dim);border-top:1px solid var(--bor);padding-top:8px;}
+.hi{background:#7c6fff18;color:var(--acc);border-radius:4px;padding:1px 6px;font-weight:600;}
+.cpbtn{position:absolute;top:12px;right:12px;background:transparent;border:1px solid var(--bor);color:var(--dim);font-size:11px;padding:3px 10px;border-radius:6px;cursor:pointer;transition:all .2s;}
+.cpbtn:hover{border-color:var(--acc);color:var(--acc);}
+.fscript{background:linear-gradient(135deg,#7c6fff10,#ff6fd808);border:1px solid #7c6fff30;border-radius:10px;padding:18px;font-size:15px;line-height:2;color:var(--txt);}
+mark{background:#7c6fff20;color:var(--acc);border-radius:3px;padding:0 3px;}
+.qwrap{margin-bottom:10px;border:1px solid var(--bor);border-radius:var(--r);overflow:hidden;}
+.qwrap:hover{border-color:#3a4255;}
+.qhead{padding:14px 18px;cursor:pointer;display:flex;align-items:flex-start;gap:12px;}
+.qnum{width:26px;height:26px;flex-shrink:0;background:var(--acc);color:#fff;font-size:11px;font-weight:700;border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;}
+.qtx{flex:1;}.qen{font-size:13px;font-weight:600;}.qth{font-size:11px;color:var(--dim);margin-top:2px;}
+.qarr{color:var(--dim);font-size:18px;transition:transform .3s;}
+.qwrap.open .qarr{transform:rotate(180deg);}
+.qbody{display:none;padding:0 18px 16px;border-top:1px solid var(--bor);}
+.qwrap.open .qbody{display:block;padding-top:14px;}
+.ans{background:var(--sur2);border-left:3px solid var(--acc);border-radius:0 8px 8px 0;padding:14px;font-size:14px;line-height:1.9;margin-bottom:10px;}
+.tip{background:#ffd46012;border:1px solid #ffd46025;border-radius:8px;padding:10px 14px;font-size:12px;color:var(--yel);}
+.tip::before{content:"💡 Tip: ";font-weight:700;}
+.ath{font-size:12px;color:var(--dim);background:#ffffff04;border-radius:6px;padding:10px;margin-top:8px;}
+.vfil{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;}
+.vbtn{padding:5px 14px;border-radius:20px;font-size:11px;font-weight:600;cursor:pointer;border:1px solid var(--bor);background:transparent;color:var(--dim);transition:all .2s;}
+.vbtn.active,.vbtn:hover{border-color:var(--acc);color:var(--acc);background:#7c6fff15;}
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;}
+.vcard{background:var(--sur2);border:1px solid var(--bor);border-radius:10px;padding:14px;transition:all .2s;}
+.vcard:hover{border-color:var(--acc);transform:translateY(-2px);}
+.vw{font-family:'Space Mono',monospace;font-size:14px;color:var(--acc);font-weight:700;margin-bottom:3px;}
+.vp{font-size:11px;color:#ff6fd8;font-style:italic;margin-bottom:5px;}
+.vt{font-size:12px;color:var(--dim);margin-bottom:7px;}
+.ve{font-size:13px;color:var(--dim);border-top:1px solid var(--bor);padding-top:7px;line-height:1.7;}
+.ve em{color:var(--teal);font-style:normal;font-weight:600;}
+.mbar{background:var(--sur2);border:1px solid var(--bor);border-radius:var(--r);padding:14px 18px;display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+.ldot{width:9px;height:9px;border-radius:50%;background:var(--dim);}
+.ldot.on{background:var(--red);animation:blink 1.4s infinite;}
+.ldot.done{background:var(--teal);}
+@keyframes blink{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.4)}}
+.mst{flex:1;font-size:13px;}.mpg{font-family:'Space Mono',monospace;font-size:11px;color:var(--dim);}
+.mbox{background:var(--sur);border:1px solid var(--bor);border-radius:var(--r);overflow:hidden;margin-bottom:14px;}
+.iq{background:var(--sur2);border-bottom:1px solid var(--bor);padding:20px;}
+.ifrom{font-size:10px;font-family:'Space Mono',monospace;color:var(--acc);letter-spacing:.1em;margin-bottom:8px;}
+.iqen{font-size:17px;font-weight:600;}.iqth{font-size:12px;color:var(--dim);margin-top:4px;}
+.ia{padding:18px;}
+.ia label{font-size:10px;font-family:'Space Mono',monospace;color:var(--dim);display:block;margin-bottom:8px;}
+textarea.mta{width:100%;background:var(--sur2);border:1px solid var(--bor);border-radius:8px;color:var(--txt);font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;padding:12px;resize:vertical;min-height:90px;outline:none;transition:border-color .2s;}
+textarea.mta:focus{border-color:var(--acc);}
+.macts{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;}
+.btn{padding:9px 18px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;border:none;transition:all .2s;font-family:'Plus Jakarta Sans',sans-serif;}
+.btnp{background:var(--acc);color:#fff;}.btnp:hover{background:#6b5fe0;transform:translateY(-1px);}
+.btns{background:transparent;border:1px solid var(--bor);color:var(--dim);}.btns:hover{border-color:var(--acc);color:var(--acc);}
+.hint{background:#7c6fff12;border:1px solid #7c6fff25;border-radius:8px;padding:12px 14px;font-size:13px;color:var(--txt);margin-top:10px;display:none;line-height:1.7;}
+.fbbox{background:var(--sur2);border:1px solid var(--bor);border-radius:var(--r);padding:18px;margin-top:14px;display:none;}
+.fbtitle{font-size:13px;font-weight:700;color:var(--acc);margin-bottom:12px;}
+.fbrow{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--bor);font-size:12px;}
+.fbrow:last-of-type{border-bottom:none;}
+.sc{font-weight:700;}.sc.g{color:var(--teal);}.sc.o{color:var(--yel);}.sc.b{color:var(--red);}
+.fbn{font-size:11px;color:var(--dim);padding:4px 0 8px;}
+.fbimp{background:var(--sur);border-left:3px solid var(--teal);border-radius:0 8px 8px 0;padding:12px;font-size:14px;line-height:1.9;margin:10px 0;}
+.fbenc{background:#7c6fff10;border-radius:8px;padding:10px 14px;font-size:12px;color:var(--acc);}
+.loadt{text-align:center;padding:20px;color:var(--dim);font-size:12px;}
+.loadt::after{content:'.';animation:ldots 1.2s infinite;}
+@keyframes ldots{0%{content:'.'}33%{content:'..'}66%{content:'...'}}
+.congrats{text-align:center;padding:50px 20px;display:none;}
+.congrats .big{font-size:54px;margin-bottom:12px;}
+.congrats h2{font-size:26px;font-weight:700;color:var(--acc);margin-bottom:6px;}
+.congrats p{font-size:13px;color:var(--dim);}
+/* HONDA */
+.hhero{background:linear-gradient(135deg,#1a0508,#0d0f18);border:1px solid #c8102e40;border-radius:var(--r);padding:20px;margin-bottom:20px;display:flex;gap:16px;align-items:flex-start;}
+.hlogo{width:52px;height:52px;border-radius:12px;background:#c8102e;color:#fff;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:900;font-family:'Space Mono',monospace;flex-shrink:0;}
+.htitle{font-size:16px;font-weight:700;margin-bottom:4px;}.hsub{font-size:12px;color:var(--dim);line-height:1.6;}
+.hchips{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;}
+.hchip{padding:3px 10px;border-radius:20px;font-size:10px;font-weight:600;background:#c8102e18;color:#ff8080;border:1px solid #c8102e30;}
+.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px;}
+@media(max-width:580px){.mgrid{grid-template-columns:1fr;}}
+.mc{background:var(--sur2);border:1px solid var(--bor);border-radius:var(--r);padding:16px;}
+.mct{font-size:10px;font-family:'Space Mono',monospace;color:var(--dim);margin-bottom:12px;letter-spacing:.05em;}
+.mi{display:flex;gap:10px;margin-bottom:10px;align-items:flex-start;}
+.mdot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:6px;}
+.mdot.g{background:var(--teal);}.mdot.y{background:var(--yel);}
+.mt{font-size:13px;line-height:1.6;}.ms{font-size:11px;color:var(--dim);margin-top:2px;}
+.barrow{margin-bottom:12px;}
+.barlabel{display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px;}
+.barlabel span:last-child{color:var(--teal);font-weight:700;}
+.barbg{background:var(--sur2);border-radius:20px;height:8px;}
+.barfill{height:8px;border-radius:20px;background:linear-gradient(90deg,var(--teal),var(--acc));width:0;transition:width 1.2s ease;}
+.pc{background:var(--sur);border:1px solid var(--bor);border-radius:var(--r);margin-bottom:12px;overflow:hidden;}
+.pc-head{padding:14px 18px;cursor:pointer;display:flex;gap:12px;align-items:center;}
+.pc-ico{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.pc-name{font-size:14px;font-weight:700;}.pc-role{font-size:11px;color:#ff8080;margin-top:2px;}
+.pc-arr{margin-left:auto;color:var(--dim);font-size:18px;transition:transform .3s;}
+.pc.open .pc-arr{transform:rotate(180deg);}
+.pc-body{display:none;padding:0 18px 16px;border-top:1px solid var(--bor);}
+.pc.open .pc-body{display:block;padding-top:14px;}
+.pyou{background:var(--sur2);border-left:3px solid var(--acc);border-radius:0 8px 8px 0;padding:12px 14px;font-size:13px;line-height:1.85;margin-bottom:8px;}
+.parr{text-align:center;font-size:20px;margin:6px 0;color:var(--teal);}
+.phonda{background:#c8102e10;border:1px solid #c8102e25;border-radius:8px;padding:12px 14px;font-size:13px;line-height:1.85;color:var(--txt);}
+.phonda strong{color:#ff8080;}
+.cpscript{margin-top:10px;background:transparent;border:1px solid var(--bor);color:var(--dim);font-size:11px;padding:5px 12px;border-radius:6px;cursor:pointer;transition:all .2s;}
+.cpscript:hover{border-color:var(--acc);color:var(--acc);}
+.hqwrap{border:1px solid var(--bor);border-radius:var(--r);margin-bottom:10px;overflow:hidden;}
+.hqhead{padding:14px 18px;cursor:pointer;display:flex;gap:12px;align-items:flex-start;}
+.hqnum{width:26px;height:26px;flex-shrink:0;background:#c8102e;color:#fff;font-size:11px;font-weight:700;border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;}
+.hqarr{color:var(--dim);font-size:18px;transition:transform .3s;margin-left:auto;}
+.hqwrap.open .hqarr{transform:rotate(180deg);}
+.hqbody{display:none;padding:0 18px 16px;border-top:1px solid var(--bor);}
+.hqwrap.open .hqbody{display:block;padding-top:14px;}
+.hqans{background:var(--sur2);border-left:3px solid #c8102e;border-radius:0 8px 8px 0;padding:14px;font-size:14px;line-height:1.9;margin-bottom:10px;}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="av">ST</div>
+  <div><div class="hi1">Saowalak Thamnawat</div><div class="hi2">AI Specialist — Interview Prep (Simple English)</div></div>
+  <div class="badge">🤖 AI/ML Role</div>
+</div>
+
+<div class="nav">
+  <button class="tab active" onclick="goTab('intro',this)">👋 แนะนำตัว</button>
+  <button class="tab" onclick="goTab('qa',this)">❓ Q &amp; A</button>
+  <button class="tab" onclick="goTab('vocab',this)">📚 คำศัพท์</button>
+  <button class="tab" onclick="goTab('mock',this)">🎤 Mock Interview</button>
+  <button class="tab htab" onclick="goTab('honda',this)">🚗 Honda Match</button>
+</div>
+
+<div class="content">
+
+<!-- INTRO -->
+<div class="sec active" id="section-intro">
+  <div class="sec-hd"><h2>👋 แนะนำตัวภาษาอังกฤษ</h2><p>ภาษาทางการ แต่คำง่าย — สร้างจาก Resume ของคุณ พร้อมใช้เลย</p></div>
+  <div class="iblock">
+    <button class="cpbtn" onclick="cp('b1',this)">📋 Copy</button>
+    <div class="ilabel">เปิดตัว</div>
+    <div class="ien" id="b1">Good morning. My name is <span class="hi">Saowalak Thamnawat</span>. I am pleased to have this opportunity to introduce myself.</div>
+    <div class="ith">🇹🇭 เปิดตัวทางการ สุภาพ เหมาะกับ interview ระดับบริษัทใหญ่</div>
+  </div>
+  <div class="iblock">
+    <button class="cpbtn" onclick="cp('b2',this)">📋 Copy</button>
+    <div class="ilabel">ตำแหน่งปัจจุบัน</div>
+    <div class="ien" id="b2">I am currently working as an <span class="hi">AI Specialist</span> at <span class="hi">SHERA Public Company Limited</span>. I am responsible for designing and developing AI systems for manufacturing operations, including quality inspection and equipment monitoring.</div>
+    <div class="ith">🇹🇭 บอกตำแหน่ง บริษัทเต็ม และขอบเขตงาน — ฟังดูมืออาชีพมาก</div>
+  </div>
+  <div class="iblock">
+    <button class="cpbtn" onclick="cp('b3',this)">📋 Copy</button>
+    <div class="ilabel">ทักษะและงานที่ทำ</div>
+    <div class="ien" id="b3">In this role, I develop machine learning models using <span class="hi">Python, TensorFlow, and PyTorch</span>. I have also designed <span class="hi">AI-powered reporting systems</span> and intelligent workflows using Microsoft Copilot Studio to support management decisions.</div>
+    <div class="ith">🇹🇭 เน้น tools ที่ใช้ และงานที่ทำจริง เช่น ML models, reporting systems</div>
+  </div>
+  <div class="iblock">
+    <button class="cpbtn" onclick="cp('b4',this)">📋 Copy</button>
+    <div class="ilabel">ประสบการณ์ที่ผ่านมา</div>
+    <div class="ien" id="b4">Prior to this position, I served as a <span class="hi">Co-Researcher at NSTDA</span> for three years, where I was responsible for collecting and analyzing data from multiple sources, and producing reports to support decision-making. I also hold a <span class="hi">Master's degree in Informatics</span>.</div>
+    <div class="ith">🇹🇭 บอกประสบการณ์ที่ NSTDA อย่างทางการ เน้น data collection, analysis, report</div>
+  </div>
+  <div class="iblock">
+    <button class="cpbtn" onclick="cp('b5',this)">📋 Copy</button>
+    <div class="ilabel">ปิดท้าย</div>
+    <div class="ien" id="b5">I am passionate about applying AI to solve real-world problems. I am confident that my experience and skills would allow me to make a meaningful contribution to your organization.</div>
+    <div class="ith">🇹🇭 ปิดท้ายแบบมั่นใจ แสดงว่าคุณพร้อมและมีคุณค่าต่อองค์กร</div>
+  </div>
+  <div class="card" style="background:linear-gradient(135deg,#7c6fff10,#ff6fd808);border-color:#7c6fff25;">
+    <div class="clabel">🎯 สคริปต์เต็ม — ฝึกพูดได้เลย</div>
+    <div class="fscript">"Good morning. My name is <mark>Saowalak Thamnawat</mark>. I am pleased to have this opportunity to introduce myself.<br><br>I am currently working as an <mark>AI Specialist</mark> at <mark>SHERA Public Company Limited</mark>. I am responsible for designing and developing AI systems for manufacturing operations, including quality inspection and equipment monitoring.<br><br>In this role, I develop machine learning models using <mark>Python, TensorFlow, and PyTorch</mark>. I have also designed <mark>AI-powered reporting systems</mark> and intelligent workflows using Microsoft Copilot Studio to support management decisions.<br><br>Prior to this position, I served as a <mark>Co-Researcher at NSTDA</mark> for three years, where I was responsible for collecting and analyzing data from multiple sources, and producing reports to support decision-making. I also hold a <mark>Master's degree in Informatics</mark>.<br><br>I am passionate about applying AI to solve real-world problems. I am confident that my experience and skills would allow me to make a meaningful contribution to your organization."</div>
+  </div>
+</div>
+
+<!-- Q&A -->
+<div class="sec" id="section-qa">
+  <div class="sec-hd"><h2>❓ คำถามที่มักถูกถาม + วิธีตอบ</h2><p>ภาษาง่าย ประโยคสั้น — คลิกเพื่อดูคำตอบ</p></div>
+  <div id="qa-list"></div>
+</div>
+
+<!-- VOCAB -->
+<div class="sec" id="section-vocab">
+  <div class="sec-hd"><h2>📚 คำศัพท์สำคัญ</h2><p>คำที่ใช้บ่อยในการสัมภาษณ์งาน AI/IT</p></div>
+  <div class="vfil" id="voc-filters"></div>
+  <div class="vgrid" id="voc-grid"></div>
+</div>
+
+<!-- MOCK -->
+<div class="sec" id="section-mock">
+  <div class="sec-hd"><h2>🎤 Mock Interview</h2><p>ฝึกตอบคำถาม รับ Feedback จาก AI ทันที — ตอบภาษาง่ายได้เลย!</p></div>
+  <div class="mbar">
+    <div class="ldot" id="ldot"></div>
+    <div class="mst" id="mst">กด "เริ่มสัมภาษณ์" เพื่อเริ่ม</div>
+    <div class="mpg" id="mpg"></div>
+  </div>
+  <div id="start-area"><button class="btn btnp" onclick="startMock()">🎤 เริ่มสัมภาษณ์</button></div>
+  <div id="mock-area" style="display:none;">
+    <div class="mbox">
+      <div class="iq">
+        <div class="ifrom">👩‍💼 INTERVIEWER</div>
+        <div class="iqen" id="mqen"></div>
+        <div class="iqth" id="mqth"></div>
+      </div>
+      <div class="ia">
+        <label>YOUR ANSWER — พิมพ์คำตอบภาษาอังกฤษ (ภาษาง่ายๆ ได้เลย!)</label>
+        <textarea class="mta" id="mta" placeholder="Type your answer here... (simple English is OK!)"></textarea>
+        <div class="macts">
+          <button class="btn btnp" onclick="submitAns()">✅ ส่งคำตอบ</button>
+          <button class="btn btns" onclick="showHint()">💡 Hint</button>
+          <button class="btn btns" onclick="skipQ()">⏭ ข้าม</button>
+        </div>
+        <div class="hint" id="hint-box"></div>
+      </div>
+    </div>
+    <div class="fbbox" id="fbbox">
+      <div id="fb-load" class="loadt" style="display:none;">กำลังวิเคราะห์คำตอบ</div>
+      <div id="fb-content"></div>
+    </div>
+  </div>
+  <div class="congrats" id="cong">
+    <div class="big">🏆</div>
+    <h2>เก่งมาก! ผ่านครบแล้ว!</h2>
+    <p>ยิ่งฝึก ยิ่งเก่ง — ลองทำใหม่ได้เลย</p><br>
+    <button class="btn btnp" onclick="resetMock()">🔄 เริ่มใหม่</button>
+  </div>
+</div>
+
+<!-- HONDA -->
+<div class="sec" id="section-honda">
+  <div class="sec-hd"><h2>🚗 Honda Role Match</h2><p>โยง project ของคุณกับงานที่ Honda ต้องการ — พร้อม script ตอบคำถาม</p></div>
+  <div class="hhero">
+    <div class="hlogo">H</div>
+    <div>
+      <div class="htitle">Digital Innovation: Lead Management Data Analyst</div>
+      <div class="hsub">Honda Automobile (Thailand) Co., Ltd. · Bangkok<br>วิเคราะห์ข้อมูล lead ลูกค้า · Digital Marketing · Sales Application Support</div>
+      <div class="hchips"><span class="hchip">Data Analysis</span><span class="hchip">Lead Management</span><span class="hchip">Digital Marketing</span><span class="hchip">Digital Transformation</span></div>
+    </div>
+  </div>
+  <div class="card" style="margin-bottom:20px;">
+    <div class="clabel" style="color:#ff8080;">📊 ทักษะของคุณ vs สิ่งที่ Honda ต้องการ</div>
+    <div id="match-bars"></div>
+  </div>
+  <div class="mgrid">
+    <div class="mc">
+      <div class="mct">✅ สิ่งที่ MATCH กับงาน Honda</div>
+      <div class="mi"><div class="mdot g"></div><div class="mt">วิเคราะห์ข้อมูลจาก multi-source<div class="ms">ที่ SHERA/NSTDA คุณรวมข้อมูลจากหลายแหล่ง</div></div></div>
+      <div class="mi"><div class="mdot g"></div><div class="mt">สร้าง Dashboard &amp; Auto Report<div class="ms">สร้าง QA dashboards + AI reporting ที่ SHERA</div></div></div>
+      <div class="mi"><div class="mdot g"></div><div class="mt">ใช้ Python &amp; SQL กับ business data<div class="ms">Tech stack ตรงกับที่ Honda ต้องการมาก</div></div></div>
+      <div class="mi"><div class="mdot g"></div><div class="mt">Digital Transformation experience<div class="ms">นำ AI tools มาใช้ใน enterprise จริงๆ</div></div></div>
+    </div>
+    <div class="mc">
+      <div class="mct">💡 ต้องเน้นเพิ่ม (พูดให้ Honda ฟัง)</div>
+      <div class="mi"><div class="mdot y"></div><div class="mt">Customer / Lead Data Analysis<div class="ms">โยงกับ "customer data" ที่คุณวิเคราะห์</div></div></div>
+      <div class="mi"><div class="mdot y"></div><div class="mt">Marketing Insight<div class="ms">พูดว่า data ของคุณช่วย decision-making</div></div></div>
+      <div class="mi"><div class="mdot y"></div><div class="mt">Communication กับ Business Team<div class="ms">เน้นว่าทำงานกับ management ที่ SHERA ได้ดี</div></div></div>
+      <div class="mi"><div class="mdot y"></div><div class="mt">Automotive Interest<div class="ms">บอกว่าสนใจ automotive industry และ Honda</div></div></div>
+    </div>
+  </div>
+  <div style="font-size:15px;font-weight:700;margin-bottom:6px;">👋 แนะนำตัวสำหรับ Honda โดยเฉพาะ</div>
+  <p style="font-size:13px;color:var(--dim);margin-bottom:14px;">เน้น data analysis และ digital transformation — ภาษาทางการ คำไม่ยาก</p>
+
+  <div class="iblock">
+    <button class="cpbtn" onclick="cp('hb1',this)">📋 Copy</button>
+    <div class="ilabel" style="color:#ff8080;">เปิดตัว + ชื่อ</div>
+    <div class="ien" id="hb1">Good morning. My name is <span class="hi">Saowalak Thamnawat</span>. I am honored to have this opportunity to interview for this position at Honda.</div>
+    <div class="ith">🇹🇭 เปิดตัวทางการ พูดถึง Honda โดยตรง แสดงความสุภาพ</div>
+  </div>
+
+  <div class="iblock">
+    <button class="cpbtn" onclick="cp('hb2',this)">📋 Copy</button>
+    <div class="ilabel" style="color:#ff8080;">งานปัจจุบัน — เน้น data & reporting</div>
+    <div class="ien" id="hb2">I am currently working as an <span class="hi">AI Specialist</span> at <span class="hi">SHERA Public Company Limited</span>. My primary responsibilities include analyzing operational data, building dashboards, and developing <span class="hi">automated reporting systems</span> to support management decisions.</div>
+    <div class="ith">🇹🇭 เน้น data analysis, dashboard, auto-report — ตรงกับงาน Honda Lead Management</div>
+  </div>
+
+  <div class="iblock">
+    <button class="cpbtn" onclick="cp('hb3',this)">📋 Copy</button>
+    <div class="ilabel" style="color:#ff8080;">ทักษะ — เน้น tools ที่ Honda ต้องการ</div>
+    <div class="ien" id="hb3">I have hands-on experience with <span class="hi">Python and SQL</span> for data processing and analysis. I am able to design clear <span class="hi">dashboards and reports</span> that are accessible to both technical and non-technical audiences. I also utilize <span class="hi">Microsoft Copilot Studio</span> to automate workflows and reports.</div>
+    <div class="ith">🇹🇭 เน้น Python, SQL, dashboard, Copilot — tools ที่ Honda ต้องการ</div>
+  </div>
+
+  <div class="iblock">
+    <button class="cpbtn" onclick="cp('hb4',this)">📋 Copy</button>
+    <div class="ilabel" style="color:#ff8080;">ประสบการณ์ที่ผ่านมา</div>
+    <div class="ien" id="hb4">Prior to my current role, I served as a <span class="hi">Co-Researcher at NSTDA</span> for three years. I was responsible for integrating data from multiple sources, conducting analysis, and producing reports to support research and policy decisions. I also hold a <span class="hi">Master's degree in Informatics</span>.</div>
+    <div class="ith">🇹🇭 เน้นงานที่ NSTDA: multi-source data, analysis, report — แสดงว่าทำงาน data มานานแล้ว</div>
+  </div>
+
+  <div class="iblock">
+    <button class="cpbtn" onclick="cp('hb5',this)">📋 Copy</button>
+    <div class="ilabel" style="color:#ff8080;">ปิดท้าย — เชื่อมกับ Honda</div>
+    <div class="ien" id="hb5">I am highly interested in this role at <span class="hi">Honda</span>, as it aligns well with my background in data analysis and digital tools. I believe that <span class="hi">data-driven insights</span> can help Honda better understand customer behavior and improve sales performance. I am ready to contribute to your team.</div>
+    <div class="ith">🇹🇭 พูดถึง Honda โดยตรง บอกว่าเข้าใจงาน และ connect ประสบการณ์กับ Honda</div>
+  </div>
+
+  <div class="card" style="background:linear-gradient(135deg,#c8102e10,#0d0f18);border-color:#c8102e30;margin-bottom:24px;">
+    <div class="clabel" style="color:#ff8080;">🚗 สคริปต์เต็มสำหรับ Honda — ฝึกพูดได้เลย</div>
+    <div class="fscript" style="border-color:#c8102e25;">"Good morning. My name is <mark>Saowalak Thamnawat</mark>. I am honored to have this opportunity to interview for this position at Honda.<br><br>I am currently working as an <mark>AI Specialist</mark> at <mark>SHERA Public Company Limited</mark>. My primary responsibilities include analyzing operational data, building dashboards, and developing <mark>automated reporting systems</mark> to support management decisions.<br><br>I have hands-on experience with <mark>Python and SQL</mark> for data processing and analysis. I am able to design clear <mark>dashboards and reports</mark> that are accessible to both technical and non-technical audiences. I also utilize <mark>Microsoft Copilot Studio</mark> to automate workflows and reports.<br><br>Prior to my current role, I served as a <mark>Co-Researcher at NSTDA</mark> for three years, where I was responsible for integrating data from multiple sources and producing reports to support decision-making. I also hold a <mark>Master's degree in Informatics</mark>.<br><br>I am highly interested in this role at <mark>Honda</mark>, as it aligns well with my background in data analysis and digital tools. I believe that <mark>data-driven insights</mark> can help Honda better understand customer behavior and improve sales performance. I am ready to contribute to your team."</div>
+  </div>
+
+  <div style="font-size:15px;font-weight:700;margin-bottom:6px;">🔗 โยง Project ของคุณ → งาน Honda</div>
+  <p style="font-size:13px;color:var(--dim);margin-bottom:16px;">คลิกที่แต่ละ project เพื่อดู script ที่พูดกับ Honda ได้เลย</p>
+  <div id="proj-list"></div>
+  <div style="font-size:15px;font-weight:700;margin:20px 0 8px;">❓ คำถามที่ Honda อาจถาม + วิธีตอบ</div>
+  <div id="honda-qa-list"></div>
+</div>
+
+</div>
+
+<script>
+const qaData=[
+  {q:"Tell me about yourself.",qth:"แนะนำตัวคุณหน่อย",ans:`My name is Saowalak Thamnawat. I am currently working as an AI Specialist at SHERA Public Company Limited, where I am responsible for developing AI systems for manufacturing operations. My work includes quality inspection systems and equipment monitoring models. Prior to this, I served as a Co-Researcher at NSTDA for three years, focusing on data analysis and reporting. I also hold a Master's degree in Informatics.`,ath:"🇹🇭 แนะนำชื่อ → ตำแหน่ง + บริษัท → งานที่ทำ → NSTDA → การศึกษา",tip:"ตอบให้จบใน 90 วินาที เน้นงานที่ทำจริง ฟังดูเป็นมืออาชีพ"},
+  {q:"What is your job now?",qth:"ตอนนี้คุณทำงานอะไร?",ans:`I am currently an AI Specialist at SHERA Public Company Limited in Lopburi. My primary responsibilities include designing machine learning models, building data dashboards, and developing automated reporting systems using Python and Microsoft Copilot Studio.`,ath:"🇹🇭 บอกตำแหน่ง บริษัท และความรับผิดชอบหลัก",tip:"ใช้คำว่า 'I am responsible for' หรือ 'My primary responsibilities include' ฟังดูเป็นทางการมาก"},
+  {q:"What are your skills?",qth:"คุณมีทักษะอะไรบ้าง?",ans:`My core technical skills include Python, TensorFlow, PyTorch, and SQL. I have experience developing machine learning models for image analysis and predictive systems. I also have expertise in building AI-powered workflows using Microsoft Copilot Studio and REST APIs.`,ath:"🇹🇭 บอก technical skills หลัก และ expertise แต่ละด้าน",tip:"ใช้คำว่า 'My core skills include' และ 'I have experience in' แทน 'I am good at'"},
+  {q:"Tell me about a project you are proud of.",qth:"เล่าถึงโปรเจกต์ที่คุณภูมิใจ",ans:`One project I am particularly proud of is a predictive maintenance system I developed at SHERA. I built an LSTM model that continuously monitors equipment sensor data to detect unusual patterns. When the system identifies a potential issue, it sends an alert to the maintenance team. As a result, the team can address problems before they cause downtime, which significantly improves operational efficiency.`,ath:"🇹🇭 ใช้ STAR: Situation → Task → Action → Result เล่าอย่างเป็นระบบ",tip:"ใช้ STAR method ให้คำตอบมีโครงสร้าง และใช้ประโยคทางการ เช่น 'I am particularly proud of'"},
+  {q:"What is your weakness?",qth:"จุดอ่อนของคุณคืออะไร?",ans:`One area I have been working to improve is time management when handling complex tasks. I tend to invest significant time in ensuring high quality, which can sometimes affect deadlines. I have addressed this by setting clear time limits for each phase of my work, which has helped me deliver results more efficiently.`,ath:"🇹🇭 บอกจุดอ่อนจริงๆ แต่แสดงว่ากำลังพัฒนา — ฟังดูซื่อสัตย์และมีวุฒิภาวะ",tip:"ใช้ 'One area I have been working to improve is...' แทน 'My weakness is...' ฟังดูเป็นมืออาชีพกว่า"},
+  {q:"Why do you want this job?",qth:"ทำไมถึงอยากได้งานนี้?",ans:`I am highly interested in this position because it closely aligns with my background in AI, data analysis, and digital transformation. I am confident that my technical skills and experience would allow me to contribute meaningfully to your team. I am also motivated by the opportunity to grow professionally within your organization.`,ath:"🇹🇭 บอกว่าตำแหน่งนี้ตรงกับ background และคุณจะ contribute ได้อย่างไร",tip:"ค้นข้อมูลบริษัทก่อน แล้วเพิ่มประโยคที่กล่าวถึงบริษัทโดยตรง เช่น 'I admire how your company...'"},
+  {q:"How do you work in a team?",qth:"คุณทำงานเป็นทีมอย่างไร?",ans:`I value clear communication and collaboration in a team environment. At SHERA, I work closely with engineers and management teams on a daily basis. I make it a priority to keep all stakeholders informed of project progress and to provide support to colleagues when needed. I believe effective teamwork is essential for delivering quality results.`,ath:"🇹🇭 เน้น communication, collaboration และยกตัวอย่างจาก SHERA",tip:"ใช้คำว่า 'I value' และ 'I make it a priority to' แทน 'I like' ฟังดูเป็นทางการมาก"},
+  {q:"Where do you want to be in 5 years?",qth:"ใน 5 ปีคุณอยากอยู่ที่ไหน?",ans:`In five years, I aim to advance into a senior AI or data leadership role. I would like to take on greater responsibilities, such as leading projects and mentoring junior team members. I am also committed to continuously developing my expertise in emerging AI technologies. I see this organization as an excellent environment in which to achieve those goals.`,ath:"🇹🇭 บอกเป้าหมายที่ชัดเจน เชื่อมกับบริษัท และแสดงความ commitment",tip:"ใช้ 'I aim to' และ 'I am committed to' แทน 'I want to' ฟังดูเป็นมืออาชีพและมุ่งมั่นมากขึ้น"},
+  {q:"Do you have any questions for us?",qth:"คุณมีคำถามอะไรถามเราบ้างไหม?",ans:`Yes, I do have a few questions. First, could you describe the current AI and data tools that the team is using? Second, what would be the key priorities for this role in the first three months? And third, what opportunities does the organization offer for professional development?`,ath:"🇹🇭 ถาม 3 คำถามทางการ เกี่ยวกับ tools, เป้าหมาย 3 เดือนแรก และโอกาสพัฒนา",tip:"ใช้ 'Could you describe...' และ 'What opportunities does the organization offer...' ฟังดูมืออาชีพและสุภาพ"},
+];
+
+const vocabData=[
+  {w:"AI model",pr:"/eɪ aɪ ˈmɒdəl/",th:"โมเดล AI",ex:"I built an <em>AI model</em> to check quality.",cat:"AI"},
+  {w:"Machine learning",pr:"/məˈʃiːn ˈlɜːrnɪŋ/",th:"การให้คอมพิวเตอร์เรียนรู้จากข้อมูล",ex:"I use <em>machine learning</em> every day.",cat:"AI"},
+  {w:"Predict",pr:"/prɪˈdɪkt/",th:"ทำนาย",ex:"My model can <em>predict</em> machine problems.",cat:"AI"},
+  {w:"Data",pr:"/ˈdeɪtə/",th:"ข้อมูล",ex:"I work with a lot of <em>data</em>.",cat:"AI"},
+  {w:"Deploy",pr:"/dɪˈplɔɪ/",th:"นำขึ้นใช้งานจริง",ex:"I <em>deployed</em> the AI system to the factory.",cat:"Work"},
+  {w:"System",pr:"/ˈsɪstəm/",th:"ระบบ",ex:"I built a <em>system</em> to check machine health.",cat:"Work"},
+  {w:"Automate",pr:"/ˈɔːtəmeɪt/",th:"ทำให้ทำงานได้อัตโนมัติ",ex:"I <em>automated</em> the quality check process.",cat:"Work"},
+  {w:"Alert",pr:"/əˈlɜːrt/",th:"การแจ้งเตือน",ex:"The system sends an <em>alert</em> when there is a problem.",cat:"Work"},
+  {w:"Team player",pr:"/tiːm pleɪər/",th:"คนที่ทำงานร่วมกับทีมได้ดี",ex:"I am a good <em>team player</em>.",cat:"Soft Skills"},
+  {w:"Fast learner",pr:"/fæst ˈlɜːrnər/",th:"คนที่เรียนรู้ได้เร็ว",ex:"I am a <em>fast learner</em>.",cat:"Soft Skills"},
+  {w:"Problem-solving",pr:"/ˈprɒbləm sɒlvɪŋ/",th:"การแก้ปัญหา",ex:"<em>Problem-solving</em> is my main skill.",cat:"Soft Skills"},
+  {w:"Contribute",pr:"/kənˈtrɪbjuːt/",th:"มีส่วนช่วย",ex:"I want to <em>contribute</em> to your team.",cat:"Soft Skills"},
+  {w:"Degree",pr:"/dɪˈɡriː/",th:"ปริญญา",ex:"I have a Master's <em>degree</em> in Informatics.",cat:"Education"},
+  {w:"Research",pr:"/rɪˈsɜːrtʃ/",th:"การวิจัย",ex:"I did <em>research</em> at NSTDA for 3 years.",cat:"Education"},
+];
+
+const mockQs=[
+  {q:"Tell me about yourself.",th:"🇹🇭 แนะนำตัวคุณหน่อย",hint:"ชื่อเต็ม → ตำแหน่ง + บริษัท SHERA → งานที่รับผิดชอบ (ML models, dashboard, reporting) → NSTDA (data analysis, reports) → ปริญญาโท"},
+  {q:"What kind of AI work have you done?",th:"🇹🇭 คุณเคยทำงาน AI ประเภทไหนบ้าง?",hint:"บอกแต่ละโปรเจกต์: Computer Vision (quality inspection), LSTM (predictive maintenance), Copilot Studio (automated reporting & AI agent)"},
+  {q:"Tell me about a problem you solved at work.",th:"🇹🇭 เล่าถึงปัญหาที่คุณแก้ได้ในงาน",hint:"ใช้ STAR: Situation (เครื่องจักรเสียโดยไม่มีสัญญาณเตือน) → Task → Action (สร้าง LSTM model) → Result (ลด downtime)"},
+  {q:"Why should we hire you?",th:"🇹🇭 ทำไมเราควรจ้างคุณ?",hint:"เน้น: ประสบการณ์จริง (SHERA + NSTDA), technical skills (Python, TensorFlow, Copilot), production-grade deployment, และความมุ่งมั่น"},
+  {q:"Do you have any questions for us?",th:"🇹🇭 คุณมีคำถามอะไรถามเราบ้างไหม?",hint:"'Could you describe the team's current tech stack?' / 'What are the key priorities for this role in the first 90 days?'"},
+];
+
+const projects=[
+  {icon:"📊",bg:"#7c6fff25",name:"Auto Report — MS Teams AI Agent",role:"SHERA · GenAI + Copilot Studio",
+   you:`At SHERA, I designed and deployed an AI-powered reporting tool integrated with MS Teams. The system automatically retrieves data from multiple operational sources and generates structured reports for management. This eliminated the need for manual report preparation and significantly reduced reporting time.`,
+   honda:`At Honda, I could apply the same approach to <strong>lead management data</strong>. I would build an automated system that consolidates sales lead data daily and delivers structured reports to the relevant teams — covering metrics such as lead volume, conversion rates, and channel performance. This would allow Honda's management to make more informed, data-driven decisions.`},
+  {icon:"🔍",bg:"#00d9b025",name:"QA Dashboard — Web Analytics",role:"SHERA · Python + Data Visualization",
+   you:`At SHERA, I developed a web-based dashboard to replace legacy VBA-based quality reporting tools. The dashboard provides real-time visibility into production quality metrics, enabling teams to identify and respond to issues more quickly.`,
+   honda:`For Honda, I could design a <strong>lead analytics dashboard</strong> that provides a consolidated view of customer touchpoints — including website visits, advertisement engagement, and showroom inquiries. This would allow the sales and marketing teams to identify the most effective <strong>lead acquisition channels</strong> and optimize budget allocation accordingly.`},
+  {icon:"🤖",bg:"#ffd46025",name:"Multi-Source Data Integration",role:"NSTDA · Applied Data Science",
+   you:`During my time at NSTDA, I was responsible for integrating data from multiple sources — including production records, environmental measurements, and sensor outputs. I developed pipelines to clean, transform, and structure this data for downstream analysis and reporting.`,
+   honda:`For Honda, I could apply this experience to integrate customer data from various channels — including the company website, showroom visits, call records, and digital advertising platforms. This consolidated data would enable a comprehensive view of the <strong>customer journey</strong>, helping Honda understand which touchpoints are most influential in driving purchase decisions.`},
+  {icon:"📈",bg:"#ff6fd825",name:"Predictive Model — LSTM",role:"SHERA · Machine Learning",
+   you:`At SHERA, I developed an LSTM-based predictive maintenance model that continuously monitors equipment sensor data to detect anomalies. The model enables the maintenance team to address potential issues proactively, reducing unexpected downtime.`,
+   honda:`For Honda, a similar approach could be applied to <strong>customer lead scoring</strong>. By training a model on historical sales data, it would be possible to predict which leads have the highest likelihood of conversion. This would allow the sales team to prioritize high-potential leads and allocate their efforts more effectively.`},
+];
+
+const hondaQA=[
+  {q:"Why do you want to work at Honda?",qth:"ทำไมถึงอยากทำงานที่ Honda?",
+   ans:`I am highly interested in joining Honda because of the company's strong commitment to digital innovation and customer experience. I believe my background in data analysis and AI-driven reporting aligns well with the direction Honda is taking in its digital transformation initiatives. I am confident that I could contribute meaningfully to the team's objectives.`,
+   ath:"🇹🇭 บอกว่า Honda มุ่งมั่น digital innovation และ background ของคุณ align ตรงกัน"},
+  {q:"What do you know about lead management?",qth:"คุณรู้อะไรเกี่ยวกับ lead management บ้าง?",
+   ans:`Lead management refers to the process of capturing, tracking, and analyzing potential customers throughout the sales journey. In the context of Honda, this would involve monitoring how prospective buyers engage with the brand — from initial website visits to showroom inquiries — and using that data to improve conversion rates. My experience in data integration and reporting at both SHERA and NSTDA has prepared me well for this type of work.`,
+   ath:"🇹🇭 อธิบาย lead management อย่างทางการ แล้วโยงกับประสบการณ์ที่ SHERA และ NSTDA"},
+  {q:"Can you analyze customer data?",qth:"คุณวิเคราะห์ข้อมูลลูกค้าได้ไหม?",
+   ans:`Yes, I have solid experience in data analysis. At SHERA, I was responsible for processing and analyzing operational data from multiple systems on a daily basis, using Python and SQL. I also developed dashboards to communicate findings to management clearly and effectively. I am confident I could apply the same skills to customer and lead data at Honda.`,
+   ath:"🇹🇭 ยืนยันว่าทำได้ ยกตัวอย่างจาก SHERA และบอก tools ที่ใช้ (Python, SQL, Dashboard)"},
+  {q:"What tools do you use for data analysis?",qth:"คุณใช้เครื่องมืออะไรในการวิเคราะห์ข้อมูล?",
+   ans:`My primary tools for data analysis include Python, with libraries such as Pandas and Scikit-learn, as well as SQL for database querying. I have experience building data visualizations and dashboards to present insights in a clear and accessible format. I also utilize Microsoft Copilot Studio to develop automated reporting workflows.`,
+   ath:"🇹🇭 บอก tools อย่างทางการ: Python (Pandas, Scikit-learn), SQL, Dashboard, Copilot Studio"},
+  {q:"How do you present data to non-technical people?",qth:"คุณนำเสนอข้อมูลให้คนที่ไม่ใช่ technical ได้อย่างไร?",
+   ans:`I believe that effective data communication is essential for business impact. At SHERA, I regularly prepared dashboards and reports for management teams with no technical background. My approach is to focus on key metrics, use clear visualizations, and present findings in straightforward language. The objective is always to enable informed decision-making, rather than to demonstrate technical complexity.`,
+   ath:"🇹🇭 เน้น business impact, key metrics, clear visualizations — แสดงว่าเข้าใจ business context"},
+];
+
+function goTab(name,el){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('section-'+name).classList.add('active');
+}
+function cp(id,btn){
+  navigator.clipboard.writeText(document.getElementById(id).innerText);
+  btn.textContent='✅ Copied!';
+  setTimeout(()=>btn.textContent='📋 Copy',1600);
+}
+function buildQA(){
+  const list=document.getElementById('qa-list');
+  qaData.forEach((d,i)=>{
+    list.innerHTML+=`<div class="qwrap" id="qa${i}"><div class="qhead" onclick="toggleQA(${i})"><div class="qnum">Q${i+1}</div><div class="qtx"><div class="qen">${d.q}</div><div class="qth">${d.qth}</div></div><div class="qarr">⌄</div></div><div class="qbody"><div class="ans">${d.ans}</div><div class="ath">${d.ath}</div><div class="tip">${d.tip}</div></div></div>`;
+  });
+}
+function toggleQA(i){document.getElementById('qa'+i).classList.toggle('open');}
+function buildVocabFilters(){
+  const cats=['ทั้งหมด',...new Set(vocabData.map(v=>v.cat))];
+  const f=document.getElementById('voc-filters');
+  cats.forEach(c=>{
+    const b=document.createElement('button');
+    b.className='vbtn'+(c==='ทั้งหมด'?' active':'');
+    b.textContent=c;
+    b.onclick=()=>{document.querySelectorAll('.vbtn').forEach(x=>x.classList.remove('active'));b.classList.add('active');buildVocab(c);};
+    f.appendChild(b);
+  });
+}
+function buildVocab(cat){
+  cat=cat||'ทั้งหมด';
+  const g=document.getElementById('voc-grid');g.innerHTML='';
+  (cat==='ทั้งหมด'?vocabData:vocabData.filter(v=>v.cat===cat)).forEach(v=>{
+    g.innerHTML+=`<div class="vcard"><div class="vw">${v.w}</div><div class="vp">${v.pr}</div><div class="vt">${v.th}</div><div class="ve">${v.ex}</div></div>`;
+  });
+}
+let mIdx=0;
+function startMock(){
+  mIdx=0;
+  document.getElementById('start-area').style.display='none';
+  document.getElementById('mock-area').style.display='block';
+  document.getElementById('ldot').classList.add('on');
+  showMQ();
+}
+function showMQ(){
+  const q=mockQs[mIdx];
+  document.getElementById('mqen').textContent=q.q;
+  document.getElementById('mqth').textContent=q.th;
+  document.getElementById('mta').value='';
+  document.getElementById('hint-box').style.display='none';
+  document.getElementById('fbbox').style.display='none';
+  document.getElementById('fb-content').innerHTML='';
+  document.getElementById('mst').textContent='กำลังสัมภาษณ์...';
+  document.getElementById('mpg').textContent=(mIdx+1)+' / '+mockQs.length;
+}
+function showHint(){const h=document.getElementById('hint-box');h.style.display='block';h.innerHTML='<strong>💡 Hint:</strong> '+mockQs[mIdx].hint;}
+function skipQ(){nextQ();}
+function nextQ(){
+  mIdx++;
+  if(mIdx>=mockQs.length){
+    document.getElementById('mock-area').style.display='none';
+    document.getElementById('cong').style.display='block';
+    document.getElementById('ldot').classList.remove('on');
+    document.getElementById('ldot').classList.add('done');
+    document.getElementById('mst').textContent='เสร็จแล้ว! 🎉';
+    document.getElementById('mpg').textContent='';
+  }else{showMQ();}
+}
+async function submitAns(){
+  const ans=document.getElementById('mta').value.trim();
+  if(!ans){alert('กรุณาพิมพ์คำตอบก่อนส่ง');return;}
+  const q=mockQs[mIdx];
+  const fb=document.getElementById('fbbox'),ld=document.getElementById('fb-load'),fc=document.getElementById('fb-content');
+  fb.style.display='block';ld.style.display='block';fc.innerHTML='';
+  try{
+    const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:`You are a friendly English interview coach. Candidate: Saowalak (Tan), Thai AI Specialist, beginner English speaker. SHERA Company, industrial AI. Skills: Python, TensorFlow, PyTorch, Computer Vision, LSTM, Copilot Studio. Master's in Informatics. Work: built predictive maintenance (LSTM), QA dashboard, AI chatbot via Copilot, auto-reporting on MS Teams. NSTDA: data research & reports 3 years. Give feedback in SIMPLE English (A2-B1). Improved answer must use SHORT simple sentences. Question: "${q.q}" Answer: "${ans}" Reply ONLY with JSON no extra text: {"grammar_score":"Good|OK|Needs Work","clarity_score":"Good|OK|Needs Work","relevance_score":"Good|OK|Needs Work","grammar_note":"Thai","clarity_note":"Thai","relevance_note":"Thai","improved_answer":"Simple English using her real work experience","encouragement":"Thai"}`}]})});
+    const data=await r.json();
+    const text=data.content.map(i=>i.text||'').join('');
+    const j=JSON.parse(text.replace(/```json|```/g,'').trim());
+    ld.style.display='none';
+    const sc=s=>s==='Good'?'g':s==='OK'?'o':'b';
+    fc.innerHTML=`<div class="fbtitle">📊 Feedback จาก AI Coach</div><div class="fbrow"><span>📝 Grammar</span><span class="sc ${sc(j.grammar_score)}">${j.grammar_score}</span></div><div class="fbn">${j.grammar_note}</div><div class="fbrow"><span>💬 Clarity</span><span class="sc ${sc(j.clarity_score)}">${j.clarity_score}</span></div><div class="fbn">${j.clarity_note}</div><div class="fbrow"><span>🎯 Relevance</span><span class="sc ${sc(j.relevance_score)}">${j.relevance_score}</span></div><div class="fbn">${j.relevance_note}</div><div style="font-size:10px;color:var(--dim);font-family:'Space Mono',monospace;margin:10px 0 4px;">✨ ตัวอย่างคำตอบที่ดีขึ้น</div><div class="fbimp">${j.improved_answer}</div><div class="fbenc">🌟 ${j.encouragement}</div><div style="margin-top:12px;"><button class="btn btnp" onclick="nextQ()">คำถามถัดไป ➜</button></div>`;
+  }catch(e){
+    ld.style.display='none';
+    fc.innerHTML=`<div style="color:var(--red);font-size:12px;">❌ เกิดข้อผิดพลาด กรุณาลองใหม่</div><div style="margin-top:12px;"><button class="btn btnp" onclick="nextQ()">คำถามถัดไป ➜</button></div>`;
+  }
+}
+function resetMock(){
+  document.getElementById('cong').style.display='none';
+  document.getElementById('mock-area').style.display='none';
+  document.getElementById('start-area').style.display='block';
+  document.getElementById('ldot').classList.remove('on','done');
+  document.getElementById('mst').textContent='กด "เริ่มสัมภาษณ์" เพื่อเริ่ม';
+  document.getElementById('mpg').textContent='';
+}
+function buildHonda(){
+  const bars=[{label:'Data Analysis & Python/SQL',pct:92},{label:'Dashboard & Reporting Automation',pct:88},{label:'Digital Transformation / AI Tools',pct:85},{label:'Customer / Lead Data Understanding',pct:70},{label:'Automotive Industry Knowledge',pct:45}];
+  const barEl=document.getElementById('match-bars');
+  bars.forEach(b=>{barEl.innerHTML+=`<div class="barrow"><div class="barlabel"><span>${b.label}</span><span>${b.pct}%</span></div><div class="barbg"><div class="barfill" data-pct="${b.pct}"></div></div></div>`;});
+  setTimeout(()=>{document.querySelectorAll('.barfill').forEach(el=>{el.style.width=el.dataset.pct+'%';});},300);
+  const pl=document.getElementById('proj-list');
+  projects.forEach((p,i)=>{
+    pl.innerHTML+=`<div class="pc" id="pc${i}"><div class="pc-head" onclick="toggleProj(${i})"><div class="pc-ico" style="background:${p.bg}">${p.icon}</div><div><div class="pc-name">${p.name}</div><div class="pc-role">${p.role}</div></div><div class="pc-arr">⌄</div></div><div class="pc-body"><div style="font-size:10px;font-family:'Space Mono',monospace;color:var(--dim);margin-bottom:6px;">📌 สิ่งที่คุณทำ</div><div class="pyou">${p.you}</div><div class="parr">⬇ โยงกับงาน Honda</div><div style="font-size:10px;font-family:'Space Mono',monospace;color:#ff8080;margin-bottom:6px;">🚗 บอก Honda แบบนี้</div><div class="phonda">${p.honda}</div><button class="cpscript" onclick="cpProj(${i},this)">📋 Copy script นี้</button></div></div>`;
+  });
+  const ql=document.getElementById('honda-qa-list');
+  hondaQA.forEach((d,i)=>{
+    ql.innerHTML+=`<div class="hqwrap" id="hqa${i}"><div class="hqhead" onclick="toggleHQA(${i})"><div class="hqnum">Q${i+1}</div><div style="flex:1"><div style="font-size:13px;font-weight:600;">${d.q}</div><div style="font-size:11px;color:var(--dim);margin-top:2px;">${d.qth}</div></div><div class="hqarr">⌄</div></div><div class="hqbody"><div class="hqans">${d.ans}</div><div style="font-size:12px;color:var(--dim);background:#ffffff04;border-radius:6px;padding:10px;">${d.ath}</div></div></div>`;
+  });
+}
+function toggleProj(i){document.getElementById('pc'+i).classList.toggle('open');}
+function toggleHQA(i){document.getElementById('hqa'+i).classList.toggle('open');}
+function cpProj(i,btn){navigator.clipboard.writeText(projects[i].honda.replace(/<[^>]*>/g,''));btn.textContent='✅ Copied!';setTimeout(()=>btn.textContent='📋 Copy script นี้',1600);}
+
+buildQA();buildVocabFilters();buildVocab();buildHonda();
+</script>
+</body>
+</html>
