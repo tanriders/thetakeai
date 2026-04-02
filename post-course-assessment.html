@@ -143,9 +143,9 @@ a{text-decoration:none;color:inherit}
 <div class="hero">
   <div class="hero-tag">Post-Course Assessment</div>
   <h1>วัดผล<br><span>หลังเรียน</span></h1>
-  <p>วัดความเข้าใจหลังจบคอร์ส — 10 ข้อครอบคลุมทุก Module มีเฉลยและคำอธิบายทุกข้อ</p>
+  <p>วัดความเข้าใจหลังจบคอร์ส — 20 ข้อครอบคลุมทุก Module มีเฉลยและคำอธิบายทุกข้อ</p>
   <div class="info-row">
-    <div class="info-item"><div class="info-n">10</div><div class="info-l">คำถาม</div></div>
+    <div class="info-item"><div class="info-n">20</div><div class="info-l">คำถาม</div></div>
     <div class="info-item"><div class="info-n">M01–07</div><div class="info-l">ครอบคลุม</div></div>
     <div class="info-item"><div class="info-n">มีเฉลย</div><div class="info-l">ทุกข้อ</div></div>
   </div>
@@ -160,6 +160,18 @@ a{text-decoration:none;color:inherit}
 
 <script>
 const qs = [
+  {
+    mod:"M01 · AI Basics",
+    q:"AI, Machine Learning และ Generative AI มีความสัมพันธ์กันอย่างไร?",
+    opts:[
+      "เป็นคำที่มีความหมายเหมือนกัน ใช้แทนกันได้",
+      "ML และ GenAI เป็นส่วนหนึ่งของ AI — GenAI เป็นส่วนย่อยของ ML ที่เน้นการสร้าง output",
+      "AI คือส่วนหนึ่งของ ML ซึ่งเป็นส่วนหนึ่งของ GenAI",
+      "ทั้งสามไม่มีความสัมพันธ์กัน เป็น technology คนละประเภทสิ้นเชิง"
+    ],
+    ans:1,
+    explain:"AI คือกลุ่มใหญ่สุด ML เป็นส่วนหนึ่งของ AI ที่เรียนรู้จากข้อมูล และ GenAI เป็น subset ของ ML ที่เน้น generate text/image/code — เหมือนกล่องซ้อนกัน AI > ML > GenAI"
+  },
   {
     mod:"M01 · AI Basics",
     q:"ข้อใดอธิบาย LLM (Large Language Model) ได้ถูกต้องที่สุด?",
@@ -279,14 +291,122 @@ const qs = [
     ],
     ans:1,
     explain:"Prompt Library คือ 'คลัง' template ที่ผ่านการทดสอบแล้วว่าใช้งานได้จริงในโรงงาน เก็บไว้ใน SharePoint หรือ Excel แล้วแชร์ทั้งทีม ลดเวลาที่แต่ละคนต้องเขียน prompt ใหม่ทุกครั้ง และทำให้ output มีคุณภาพสม่ำเสมอ"
+  },
+  {
+    mod:"M02 · Prompt Fundamentals",
+    q:"Prompt ที่ดีตาม Microsoft 4-element ข้อใดครบถ้วนที่สุด?",
+    opts:[
+      "\"สรุปรายงาน downtime ให้หน่อย\"",
+      "\"สรุปรายงาน downtime เดือนนี้เป็น bullet 3 ข้อ\"",
+      "\"คุณคือ Plant Manager สรุปรายงาน downtime เดือนมีนาคม จากไฟล์แนบ เป็น bullet 3 ข้อ ภาษาทางการ สำหรับผู้บริหาร\"",
+      "\"ช่วยทำรายงาน downtime ให้สวยงามและครบถ้วน\""
+    ],
+    ans:2,
+    explain:"ตัวเลือกที่ 3 ครบ 4-element: Goal (สรุป), Context (สำหรับผู้บริหาร), Source (จากไฟล์แนบ), Expectations (bullet 3 ข้อ ภาษาทางการ) — ยิ่ง context ครบ ยิ่งไม่ต้องแก้ไขผลลัพธ์ซ้ำ"
+  },
+  {
+    mod:"M02 · Prompt Fundamentals",
+    q:"TAG Framework (Task · Action · Goal) เหมาะกับงานใดมากที่สุด?",
+    opts:[
+      "การเขียนรายงานที่ต้องการ format ชัดเจน",
+      "การวิเคราะห์ปัญหาที่มี task ชัดเจน มี action และเป้าหมายที่แน่นอน",
+      "การวางแผนปรับปรุงจากสถานการณ์ปัจจุบันสู่เป้าหมาย",
+      "การออกแบบ procedure ทีละขั้นตอน"
+    ],
+    ans:1,
+    explain:"TAG = Task (งานที่ต้องทำ) + Action (การกระทำที่ต้องการ) + Goal (เป้าหมายที่ชัดเจน) เหมาะกับงานที่มี 'ทำอะไร → ด้วยวิธีไหน → เพื่ออะไร' ชัดเจน เช่น 'วิเคราะห์ downtime → หาสาเหตุ → เพื่อลด 20%'"
+  },
+  {
+    mod:"M03 · Intermediate Techniques",
+    q:"Chain-of-Thought Prompting คืออะไร และมีประโยชน์อย่างไรในงานโรงงาน?",
+    opts:[
+      "การส่ง prompt หลายครั้งต่อเนื่องกัน เพื่อให้ได้คำตอบที่สมบูรณ์",
+      "การกำหนด framework การคิดเป็นขั้นตอนให้ AI ล่วงหน้า ทำให้ได้คำตอบที่ลึกและ traceable",
+      "การเขียน prompt ยาว ๆ ที่ครอบคลุมทุกด้านในครั้งเดียว",
+      "การให้ AI อธิบายผลลัพธ์ด้วยภาษาง่าย ๆ"
+    ],
+    ans:1,
+    explain:"Chain-of-Thought คือการบอก AI ให้คิด step-by-step ล่วงหน้า เช่น 'วิเคราะห์ mechanical → process → raw material' ทำให้ได้ root cause ที่ครอบคลุมและสามารถ trace กลับมาตรวจสอบได้ เหมาะกับงาน troubleshoot ใน Fiber Cement"
+  },
+  {
+    mod:"M03 · Intermediate Techniques",
+    q:"Prompt Chaining ต่างจาก Single Prompt อย่างไร?",
+    opts:[
+      "Prompt Chaining ใช้เวลานานกว่าและได้ผลลัพธ์เหมือนกัน",
+      "Prompt Chaining แบ่ง task ใหญ่เป็น prompt ย่อย แต่ละ step ส่ง output ต่อไป ได้ผลลึกกว่า",
+      "Single Prompt ดีกว่าเสมอเพราะ AI ได้ context ทั้งหมดในครั้งเดียว",
+      "Prompt Chaining ใช้ได้เฉพาะกับ ChatGPT Plus เท่านั้น"
+    ],
+    ans:1,
+    explain:"Prompt Chaining แบ่ง task ซับซ้อนออกเป็นขั้นตอนย่อย output ของ step แรกเป็น input ของ step ถัดไป ทำให้ AI focus ได้ดีขึ้นแต่ละ step และได้ผลลัพธ์ที่ลึกและแม่นยำกว่า Single Prompt ที่ถามทุกอย่างพร้อมกัน"
+  },
+  {
+    mod:"M04 · Copilot M365",
+    q:"วิธีที่ดีที่สุดในการนำข้อมูล Excel มาวิเคราะห์ด้วย Copilot Chat (ฟรี) คืออะไร?",
+    opts:[
+      "Save Excel เป็น PDF แล้วอัปโหลด",
+      "พิมพ์ตัวเลขทีละตัวลงใน chat",
+      "Copy ตารางข้อมูลจาก Excel แล้ว Paste ลงใน chat พร้อม context ที่ชัดเจน",
+      "Share link Excel file ให้ Copilot เข้าถึงโดยตรง"
+    ],
+    ans:2,
+    explain:"Copilot Chat (ฟรี) ไม่สามารถ upload file หรือ access link ได้ วิธีที่ได้ผลดีที่สุดคือ Copy ตาราง Excel แล้ว Paste พร้อมบอก context เช่น 'นี่คือ downtime data เดือนมีนาคม' ก่อนถาม"
+  },
+  {
+    mod:"M05 · Role-based",
+    q:"สำหรับ QC Engineer ใน Fiber Cement โรงงาน CARE Framework ใช้กับงานใดได้ดีที่สุด?",
+    opts:[
+      "สร้าง daily checklist ประจำวัน",
+      "วิเคราะห์ค่า Blaine ที่ผิดปกติ โดยให้บริบทครบ วิเคราะห์สาเหตุ และแนะนำ corrective action",
+      "แปลคู่มือ equipment จากภาษาต่างประเทศ",
+      "สรุปยอดผลิตรายสัปดาห์"
+    ],
+    ans:1,
+    explain:"CARE (Context + Action + Result + Example) เหมาะกับงานวิเคราะห์ที่ต้องการบริบทครบถ้วน เช่น 'Context: Blaine ลด, Action: วิเคราะห์สาเหตุ, Result: top 3 สาเหตุ, Example: liner wear / media charge' — ได้ผลลัพธ์ที่ deep กว่า prompt ทั่วไปมาก"
+  },
+  {
+    mod:"M05 · Role-based",
+    q:"Maintenance Engineer ต้องการแปลคู่มือ equipment ภาษาเยอรมัน ควรใช้ prompt แบบใด?",
+    opts:[
+      "\"แปลไฟล์นี้เป็นภาษาไทย\"",
+      "\"คุณคือ Technical Translator แปลคู่มือ Autoclave นี้จากภาษาเยอรมันเป็นภาษาไทย รักษา technical terms ไว้เป็นภาษาอังกฤษ ไม่ต้องแปล unit และ parameter\"",
+      "\"แปลคู่มือให้ operator ไทยเข้าใจ\"",
+      "\"สรุปใจความสำคัญของคู่มือนี้\""
+    ],
+    ans:1,
+    explain:"Prompt ที่ดีต้องระบุ Role (Technical Translator), Task (แปลเยอรมัน→ไทย), Expectation (รักษา technical terms ไว้เป็นอังกฤษ, ไม่แปล unit) — ทำให้ได้คู่มือที่ใช้งานได้จริงโดย operator ไม่สับสน"
+  },
+  {
+    mod:"M06 · AI Safety",
+    q:"ถ้าบริษัทใช้ Copilot Chat ผ่าน Microsoft Work Account ความปลอดภัยของข้อมูลเป็นอย่างไร?",
+    opts:[
+      "ข้อมูลทั้งหมดถูกเก็บไว้ตลอดไปและ Microsoft ใช้ได้เสรี",
+      "Microsoft ประกาศไม่นำ chat ไป train model และข้อมูลอยู่ใน Azure tenant ของบริษัท ปลอดภัยกว่า Personal account",
+      "Work Account และ Personal Account มีความปลอดภัยเท่ากัน",
+      "Work Account ปลอดภัยน้อยกว่าเพราะ Microsoft มีสิทธิ์เข้าถึงข้อมูลองค์กร"
+    ],
+    ans:1,
+    explain:"Copilot Chat ผ่าน Microsoft Work Account มีความปลอดภัยสูงกว่า Personal Account เพราะข้อมูลอยู่ใน Azure tenant ของบริษัท Microsoft ไม่นำข้อมูลไป train AI model — แต่ยังคงห้าม paste ข้อมูลลับของบริษัทเสมอ"
+  },
+  {
+    mod:"M07 · Capstone",
+    q:"วิธีวัดผล Before/After หลังจาก implement AI ในงานจริง ข้อใดดีที่สุด?",
+    opts:[
+      "ถามความรู้สึกของทีมว่าพอใจหรือไม่",
+      "ดูจากจำนวน prompt ที่สร้างได้",
+      "จับเวลางานเดิมเทียบกับงานที่ใช้ AI พร้อมวัดคุณภาพ output และความสม่ำเสมอ",
+      "รอให้ครบ 1 ปีก่อนค่อยวัด"
+    ],
+    ans:2,
+    explain:"การวัดผลที่ดีต้องวัดหลายมิติ: เวลา (จับเวลาจริง), คุณภาพ (revision ลดลงไหม), ความสม่ำเสมอ (format ตรงกันทุกครั้งไหม) และความพึงพอใจ — ทำทันทีหลัง implement ไม่ต้องรอนาน"
   }
 ];
 
 const results = [
-  {min:0, max:4,   col:"#ef4444", bg:"rgba(239,68,68,.12)",    title:"ยังต้องทบทวนอีกนิด",  desc:"คะแนนยังไม่สูงมาก แนะนำให้กลับไปทบทวน module ที่พลาด แล้วลองทำใหม่อีกครั้ง"},
-  {min:5, max:7,   col:"#f59e0b", bg:"rgba(245,158,11,.12)",   title:"ผ่านเกณฑ์ — ดีแล้ว",  desc:"เข้าใจภาพรวมดี มีบางส่วนที่ยังสับสน ลองกลับไปอ่าน module ที่พลาดก่อน"},
-  {min:8, max:9,   col:"#3b82f6", bg:"rgba(59,130,246,.12)",   title:"ดีมาก — เกือบสมบูรณ์", desc:"เข้าใจเนื้อหาส่วนใหญ่ได้ดี ขั้นถัดไปคือนำไปใช้จริงและสร้าง Prompt Library ของทีม"},
-  {min:10, max:10, col:"#22c55e", bg:"rgba(34,197,94,.12)",    title:"สมบูรณ์แบบ!",          desc:"เข้าใจทุก concept ครบถ้วน พร้อม apply ทุกอย่างในงานจริงและสอนต่อทีมได้เลย"}
+  {min:0,  max:8,  col:"#ef4444", bg:"rgba(239,68,68,.12)",    title:"ยังต้องทบทวนอีกนิด",  desc:"คะแนนยังไม่สูงมาก แนะนำให้กลับไปทบทวน module ที่พลาด แล้วลองทำใหม่อีกครั้ง"},
+  {min:9,  max:13, col:"#f59e0b", bg:"rgba(245,158,11,.12)",   title:"ผ่านเกณฑ์ — ดีแล้ว",  desc:"เข้าใจภาพรวมดี มีบางส่วนที่ยังสับสน ลองกลับไปอ่าน module ที่พลาดก่อน"},
+  {min:14, max:18, col:"#3b82f6", bg:"rgba(59,130,246,.12)",   title:"ดีมาก — เกือบสมบูรณ์", desc:"เข้าใจเนื้อหาส่วนใหญ่ได้ดี ขั้นถัดไปคือนำไปใช้จริงและสร้าง Prompt Library ของทีม"},
+  {min:19, max:20, col:"#22c55e", bg:"rgba(34,197,94,.12)",    title:"สมบูรณ์แบบ!",          desc:"เข้าใจทุก concept ครบถ้วน พร้อม apply ทุกอย่างในงานจริงและสอนต่อทีมได้เลย"}
 ];
 
 let cur = 0, answers = [], picked = null;
